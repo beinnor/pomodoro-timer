@@ -13,6 +13,12 @@ export function toMMSS(secs) {
   return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
+export function toMM(secs) {
+  const minutes = Math.floor(secs / 60);
+
+  return `${minutes}`;
+}
+
 export const decrementSessionTime = (length, state) => {
   if (length > 60) {
     const temp = length - 60;
