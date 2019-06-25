@@ -11,8 +11,7 @@ import {
   decrementSessionTime,
   incrementSessionTime,
   decrementBreakTime,
-  incrementBreakTime,
-  toMMSS
+  incrementBreakTime
 } from '../../utils/helpers';
 import { startTimer, stopTimer } from '../../utils/timer';
 
@@ -27,7 +26,7 @@ class App extends React.Component {
       breakLength: defaultBreakLength,
       sessionLength: defaultSessionLength,
       secondsLeft: defaultSessionLength,
-      sessionState: 'sessionStopped', // session, sessionStopped, break, breakStopped
+      sessionState: 'sessionStopped', // initial -> session -> [sessionStopped] -> break -> [breakStopped]
       sound: true
     };
   }
@@ -56,13 +55,28 @@ class App extends React.Component {
     this.setState({ secondsLeft: secs });
   };
 
+  timerFinished = () => {
+    const { sessionState, breakLength, secondsLeft } = this.state;
+    stopTimer();
+
+    if (sessionState === 'session') {
+      this.setState({ sessionState: 'break', secondsLeft: breakLength });
+      console.log('playsound');
+      console.log(`Secondslleft: ${secondsLeft}, brakelength: ${breakLength}`);
+      startTimer(secondsLeft, this.tick, this.timerFinished);
+    } else if (sessionState === 'break') {
+      this.setState({ sessionState: 'initial' });
+      console.log('playsound');
+    }
+  };
+
   handleTimerButton = () => {
     const { secondsLeft, sessionState } = this.state;
     if (sessionState === 'sessionStopped' || sessionState === 'breakStopped') {
       if (sessionState === 'sessionStopped') this.setState({ sessionState: 'session' });
       if (sessionState === 'breakStopped') this.setState({ sessionState: 'break' });
 
-      startTimer(secondsLeft, this.tick);
+      startTimer(secondsLeft, this.tick, this.timerFinished);
     } else {
       if (sessionState === 'session') this.setState({ sessionState: 'sessionStopped' });
       if (sessionState === 'break') this.setState({ sessionState: 'breakStopped' });
