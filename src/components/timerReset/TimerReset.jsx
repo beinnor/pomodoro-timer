@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '../button';
 
-function TimerReset({ name, buttonClick }) {
-  return (
-    <button id={name} className="button" type="button" value="reset" onClick={buttonClick}>
-      Reset
-    </button>
-  );
+function TimerReset({ buttonClick }) {
+  return <Button id="reset" value="reset" buttonClick={buttonClick} />;
 }
 
 TimerReset.propTypes = {
-  name: PropTypes.string.isRequired,
   buttonClick: PropTypes.func.isRequired
 };
 

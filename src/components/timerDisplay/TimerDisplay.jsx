@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './TimerDisplay.css';
-import toMMSS from '../../utils/convertTimeString';
+import toMMSS from '../../utils/helpers';
 
 function TimerConfig({ name, secondsLeft }) {
   const label = name.charAt(0).toUpperCase() + name.slice(1);
