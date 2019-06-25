@@ -1,4 +1,4 @@
-import toMMSS from './helpers';
+import { toMMSS } from './helpers';
 
 it('Adds leading zero to mm:ss if mm < 10', () => {
   expect(toMMSS(300)).toEqual('05:00');

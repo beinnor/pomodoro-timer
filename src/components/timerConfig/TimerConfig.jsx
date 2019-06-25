@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './TimerConfig.css';
 import Button from '../button';
-import toMMSS from '../../utils/helpers';
+import { toMMSS } from '../../utils/helpers';
 
 function TimerConfig({ name, sessionLength, onClickDecrement, onClickIncrement }) {
   return (
