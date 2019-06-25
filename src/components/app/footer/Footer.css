@@ -1,0 +1,13 @@
+footer {
+  font-size: 2rem;
+}
+
+footer p {
+  margin: 0;
+  padding: 0;
+}
+
+footer a {
+  color: var(--font-color);
+  text-decoration: none;
+}

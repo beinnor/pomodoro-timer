@@ -1,6 +1,32 @@
+:root {
+  --font-color: #f2f2f2;
+  --green-color-dark: #26a62f;
+  --green-color-light: #29d935;
+  --red-color-dark: #8c0303;
+  --red-color-light: #bf0404;
+}
+
 html,
 body {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+.button {
+  border-radius: 5px;
+  color: var(--font-color);
+  background: var(--red-color-dark);
+  padding: 10px 20px 10px 20px;
+  border: solid var(--font-color) 2px;
+  text-decoration: none;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.button:hover {
+  background: var(--font-color);
+  color: var(--red-color-dark);
+  border: solid var(--font-color) 2px;
+  text-decoration: none;
 }
