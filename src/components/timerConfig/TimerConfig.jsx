@@ -16,36 +16,36 @@ class TimerConfig extends React.Component {
   handleDecrementTime = () => {
     const { name, pomodoroState, setTimeLeft } = this.props;
     const { duration } = this.state;
-
-    if (duration > 60) {
-      const newTime = duration - 60;
-      this.setState({ duration: newTime });
-      if (name === 'session' && pomodoroState !== timerStates.BREAK_PAUSED) {
-        return setTimeLeft(newTime);
-      }
-      if (pomodoroState === timerStates.BREAK_PAUSED && name === 'break') {
-        return setTimeLeft(newTime);
+    if (pomodoroState !== timerStates.SESSION && pomodoroState !== timerStates.BREAK) {
+      if (duration > 60) {
+        const newTime = duration - 60;
+        this.setState({ duration: newTime });
+        if (name === 'session' && pomodoroState !== timerStates.BREAK_PAUSED) {
+          return setTimeLeft(newTime);
+        }
+        if (pomodoroState === timerStates.BREAK_PAUSED && name === 'break') {
+          return setTimeLeft(newTime);
+        }
       }
     }
-
     return false;
   };
 
   handleIncrementTime = () => {
     const { name, pomodoroState, setTimeLeft } = this.props;
     const { duration } = this.state;
-
-    if (duration < 3600) {
-      const newTime = duration + 60;
-      this.setState({ duration: newTime });
-      if (name === 'session' && pomodoroState !== timerStates.BREAK_PAUSED) {
-        return setTimeLeft(newTime);
-      }
-      if (pomodoroState === timerStates.BREAK_PAUSED && name === 'break') {
-        return setTimeLeft(newTime);
+    if (pomodoroState !== timerStates.SESSION && pomodoroState !== timerStates.BREAK) {
+      if (duration < 3600) {
+        const newTime = duration + 60;
+        this.setState({ duration: newTime });
+        if (name === 'session' && pomodoroState !== timerStates.BREAK_PAUSED) {
+          return setTimeLeft(newTime);
+        }
+        if (pomodoroState === timerStates.BREAK_PAUSED && name === 'break') {
+          return setTimeLeft(newTime);
+        }
       }
     }
-
     return false;
   };
 
