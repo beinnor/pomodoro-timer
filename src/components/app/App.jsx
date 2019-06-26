@@ -7,79 +7,41 @@ import TimerDisplay from '../timerDisplay';
 import TimerStart from '../timerStart';
 import TimerReset from '../timerReset';
 import SoundConfig from '../soundConfig';
-import {
-  decrementSessionTime,
-  incrementSessionTime,
-  decrementBreakTime,
-  incrementBreakTime
-} from '../../utils/helpers';
 import { startTimer, stopTimer } from '../../utils/timer';
-
-const defaultSessionLength = 25 * 60;
-const defaultBreakLength = 5 * 60;
-const defaultSessionState = 'sessionStopped';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      breakLength: defaultBreakLength,
-      sessionLength: defaultSessionLength,
-      secondsLeft: defaultSessionLength,
-      sessionState: 'sessionStopped', // initial -> session -> [sessionStopped] -> break -> [breakStopped]
+      timeLeft: 25 * 60,
+      pomodoroState: 'initial', // initial -> session -> [sessionStopped] -> break -> [breakStopped]
       sound: true
     };
   }
 
-  handleDecrementSessionTime = () => {
-    const { sessionLength, sessionState } = this.state;
-    this.setState(decrementSessionTime(sessionLength, sessionState));
-  };
-
-  handleIncrementSessionTime = () => {
-    const { sessionLength, sessionState } = this.state;
-    this.setState(incrementSessionTime(sessionLength, sessionState));
-  };
-
-  handleDecrementBreakTime = () => {
-    const { breakLength, sessionState } = this.state;
-    this.setState(decrementBreakTime(breakLength, sessionState));
-  };
-
-  handleIncrementBreakTime = () => {
-    const { breakLength, sessionState } = this.state;
-    this.setState(incrementBreakTime(breakLength, sessionState));
+  setTimeLeft = seconds => {
+    this.setState({ timeLeft: seconds });
   };
 
   tick = secs => {
-    this.setState({ secondsLeft: secs });
+    this.setState({ timeLeft: secs });
   };
 
   timerFinished = () => {
-    const { sessionState, breakLength, secondsLeft } = this.state;
+    console.log('timer finished');
     stopTimer();
-
-    if (sessionState === 'session') {
-      this.setState({ sessionState: 'break', secondsLeft: breakLength });
-      console.log('playsound');
-      console.log(`Secondslleft: ${secondsLeft}, brakelength: ${breakLength}`);
-      startTimer(secondsLeft, this.tick, this.timerFinished);
-    } else if (sessionState === 'break') {
-      this.setState({ sessionState: 'initial' });
-      console.log('playsound');
-    }
   };
 
   handleTimerButton = () => {
-    const { secondsLeft, sessionState } = this.state;
-    if (sessionState === 'sessionStopped' || sessionState === 'breakStopped') {
-      if (sessionState === 'sessionStopped') this.setState({ sessionState: 'session' });
-      if (sessionState === 'breakStopped') this.setState({ sessionState: 'break' });
+    const { timeLeft, pomodoroState } = this.state;
+    if (pomodoroState === 'sessionStopped' || pomodoroState === 'breakStopped') {
+      if (pomodoroState === 'sessionStopped') this.setState({ pomodoroState: 'session' });
+      if (pomodoroState === 'breakStopped') this.setState({ pomodoroState: 'break' });
 
-      startTimer(secondsLeft, this.tick, this.timerFinished);
+      startTimer(timeLeft, this.tick, this.timerFinished);
     } else {
-      if (sessionState === 'session') this.setState({ sessionState: 'sessionStopped' });
-      if (sessionState === 'break') this.setState({ sessionState: 'breakStopped' });
+      if (pomodoroState === 'session') this.setState({ pomodoroState: 'sessionStopped' });
+      if (pomodoroState === 'break') this.setState({ pomodoroState: 'breakStopped' });
       stopTimer();
     }
   };
@@ -87,32 +49,20 @@ class App extends React.Component {
   handleReset = () => {
     stopTimer();
     this.setState({
-      breakLength: defaultBreakLength,
-      sessionLength: defaultSessionLength,
-      secondsLeft: defaultSessionLength,
-      sessionState: defaultSessionState,
+      timeLeft: 25 * 60,
+      pomodoroState: 'initial',
       sound: true
     });
   };
 
   render() {
-    const { sessionState, secondsLeft, sessionLength, breakLength, sound: soundOn } = this.state;
+    const { pomodoroState, timeLeft, sound: soundOn } = this.state;
     return (
       <div className="App">
         <Header />
-        <TimerDisplay name={sessionState} secondsLeft={secondsLeft} />
-        <TimerConfig
-          name="session"
-          sessionLength={sessionLength}
-          onClickDecrement={this.handleDecrementSessionTime}
-          onClickIncrement={this.handleIncrementSessionTime}
-        />
-        <TimerConfig
-          name="break"
-          sessionLength={breakLength}
-          onClickDecrement={this.handleDecrementBreakTime}
-          onClickIncrement={this.handleIncrementBreakTime}
-        />
+        <TimerDisplay name={pomodoroState} timeLeft={timeLeft} />
+        <TimerConfig name="session" pomodoroState={pomodoroState} setTimeLeft={this.setTimeLeft} />
+        <TimerConfig name="break" pomodoroState={pomodoroState} setTimeLeft={this.setTimeLeft} />
         <TimerStart buttonClick={this.handleTimerButton} />
         <TimerReset buttonClick={this.handleReset} />
         <SoundConfig
