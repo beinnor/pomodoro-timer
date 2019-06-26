@@ -2,9 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './TimerDisplay.css';
 import { toMMSS } from '../../utils/helpers';
+import * as timerStates from '../../utils/timerStates';
 
-function TimerConfig({ name, timeLeft }) {
-  const label = name.charAt(0).toUpperCase() + name.slice(1);
+function TimerDisplay({ pomodoroState, timeLeft }) {
+  let label;
+
+  switch (pomodoroState) {
+    case timerStates.INITIAL:
+      label = 'Initial';
+      break;
+    case timerStates.SESSION:
+      label = 'Session';
+      break;
+    case timerStates.SESSION_PAUSED:
+      label = 'Session Paused';
+      break;
+    case timerStates.BREAK:
+      label = 'Break';
+      break;
+    case timerStates.BREAK_PAUSED:
+      label = 'Break Paused';
+      break;
+    default:
+      label = 'Initial';
+      break;
+  }
 
   return (
     <>
@@ -14,9 +36,9 @@ function TimerConfig({ name, timeLeft }) {
   );
 }
 
-TimerConfig.propTypes = {
-  name: PropTypes.string.isRequired,
+TimerDisplay.propTypes = {
+  pomodoroState: PropTypes.number.isRequired,
   timeLeft: PropTypes.number.isRequired
 };
 
-export default TimerConfig;
+export default TimerDisplay;

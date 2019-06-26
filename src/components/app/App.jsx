@@ -8,13 +8,14 @@ import TimerStart from '../timerStart';
 import TimerReset from '../timerReset';
 import SoundConfig from '../soundConfig';
 import { startTimer, stopTimer } from '../../utils/timer';
+import * as timerStates from '../../utils/timerStates';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       timeLeft: 25 * 60,
-      pomodoroState: 'initial', // initial -> session -> [sessionStopped] -> break -> [breakStopped]
+      pomodoroState: timerStates.INITIAL,
       sound: true
     };
   }
@@ -50,7 +51,7 @@ class App extends React.Component {
     stopTimer();
     this.setState({
       timeLeft: 25 * 60,
-      pomodoroState: 'initial',
+      pomodoroState: timerStates.INITIAL,
       sound: true
     });
   };
@@ -60,7 +61,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header />
-        <TimerDisplay name={pomodoroState} timeLeft={timeLeft} />
+        <TimerDisplay pomodoroState={pomodoroState} timeLeft={timeLeft} />
         <TimerConfig name="session" pomodoroState={pomodoroState} setTimeLeft={this.setTimeLeft} />
         <TimerConfig name="break" pomodoroState={pomodoroState} setTimeLeft={this.setTimeLeft} />
         <TimerStart buttonClick={this.handleTimerButton} />
