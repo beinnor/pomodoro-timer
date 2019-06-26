@@ -10,13 +10,13 @@ export function toMMSS(secs) {
     seconds = secs % 60;
   }
 
-  return `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
 export function toMM(secs) {
   const minutes = Math.floor(secs / 60);
 
-  return `${minutes}`;
+  return `${minutes.toString().padStart(2, ' ')}`;
 }
 
 export const decrementSessionTime = (length, state) => {
