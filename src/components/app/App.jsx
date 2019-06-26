@@ -10,22 +10,24 @@ import SoundConfig from '../soundConfig';
 import { startTimer, stopTimer } from '../../utils/timer';
 import * as timerStates from '../../utils/timerStates';
 
+const defaultSessionTime = 25 * 60;
+const defaultBreakTime = 5 * 60;
+const defaultCurrentTimeLeft = defaultSessionTime;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      timeLeft: 25 * 60,
+      currentTimeLeft: defaultCurrentTimeLeft,
+      sessionTime: defaultSessionTime,
+      breakTime: defaultBreakTime,
       pomodoroState: timerStates.INITIAL,
       sound: true
     };
   }
 
-  setTimeLeft = seconds => {
-    this.setState({ timeLeft: seconds });
-  };
-
-  tick = secs => {
-    this.setState({ timeLeft: secs });
+  setTimeState = obj => {
+    this.setState(obj);
   };
 
   timerFinished = () => {
@@ -34,7 +36,7 @@ class App extends React.Component {
   };
 
   handleTimerButton = () => {
-    const { timeLeft, pomodoroState } = this.state;
+    const { currentTimeLeft: timeLeft, pomodoroState } = this.state;
     if (pomodoroState === 'sessionStopped' || pomodoroState === 'breakStopped') {
       if (pomodoroState === 'sessionStopped') this.setState({ pomodoroState: 'session' });
       if (pomodoroState === 'breakStopped') this.setState({ pomodoroState: 'break' });
@@ -50,20 +52,32 @@ class App extends React.Component {
   handleReset = () => {
     stopTimer();
     this.setState({
-      timeLeft: 25 * 60,
+      currentTimeLeft: defaultCurrentTimeLeft,
+      sessionTime: defaultSessionTime,
+      breakTime: defaultBreakTime,
       pomodoroState: timerStates.INITIAL,
       sound: true
     });
   };
 
   render() {
-    const { pomodoroState, timeLeft, sound: soundOn } = this.state;
+    const { pomodoroState, currentTimeLeft, sessionTime, breakTime, sound: soundOn } = this.state;
     return (
       <div className="App">
         <Header />
-        <TimerDisplay pomodoroState={pomodoroState} timeLeft={timeLeft} />
-        <TimerConfig name="session" pomodoroState={pomodoroState} setTimeLeft={this.setTimeLeft} />
-        <TimerConfig name="break" pomodoroState={pomodoroState} setTimeLeft={this.setTimeLeft} />
+        <TimerDisplay pomodoroState={pomodoroState} timeLeft={currentTimeLeft} />
+        <TimerConfig
+          name="session"
+          pomodoroState={pomodoroState}
+          sessionTime={sessionTime}
+          setTimeState={this.setTimeState}
+        />
+        <TimerConfig
+          name="break"
+          pomodoroState={pomodoroState}
+          sessionTime={breakTime}
+          setTimeState={this.setTimeState}
+        />
         <TimerStart buttonClick={this.handleTimerButton} />
         <TimerReset buttonClick={this.handleReset} />
         <SoundConfig
