@@ -4,6 +4,7 @@ export const startTimer = (seconds, tick, timerFinished) => {
   const now = Math.round(Date.now() / 1000);
   const then = now + seconds;
 
+  tick(Math.round(then - Date.now() / 1000));
   countDownInterval = setInterval(() => {
     const secondsLeft = Math.round(then - Date.now() / 1000);
     if (secondsLeft < 0) {

@@ -13,6 +13,7 @@ import * as timerStates from '../../utils/timerStates';
 const defaultSessionTime = 25 * 60;
 const defaultBreakTime = 5 * 60;
 const defaultCurrentTimeLeft = defaultSessionTime;
+const defaultPomodoroState = timerStates.INITIAL;
 
 class App extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class App extends React.Component {
       currentTimeLeft: defaultCurrentTimeLeft,
       sessionTime: defaultSessionTime,
       breakTime: defaultBreakTime,
-      pomodoroState: timerStates.INITIAL,
+      pomodoroState: defaultPomodoroState,
       sound: true,
       startButtonValue: 'Start'
     };
@@ -37,7 +38,7 @@ class App extends React.Component {
   };
 
   timerFinished = () => {
-    const { breakTime, pomodoroState } = this.state;
+    const { sessionTime, breakTime, pomodoroState } = this.state;
     console.log('timer finished');
     stopTimer();
     if (pomodoroState === timerStates.SESSION) {
@@ -47,8 +48,9 @@ class App extends React.Component {
       return;
     }
     if (pomodoroState === timerStates.BREAK) {
-      console.log('goto INITIAL');
-      this.setState({ pomodoroState: timerStates.INITIAL });
+      console.log('goto SESSION');
+      this.setState({ pomodoroState: timerStates.SESSION });
+      startTimer(sessionTime, this.tick, this.timerFinished);
     }
   };
 
@@ -131,6 +133,7 @@ class App extends React.Component {
             this.setState({ sound });
           }}
         />
+        {/* <audio id="beep" preload="auto" src="" ref="" /> */}
         <Footer />
       </div>
     );
