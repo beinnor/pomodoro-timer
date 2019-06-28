@@ -16,5 +16,5 @@ export function toMMSS(secs) {
 export function toMM(secs) {
   const minutes = Math.floor(secs / 60);
 
-  return `${minutes.toString().padStart(2, ' ')}`;
+  return `${minutes}`;
 }
