@@ -3,7 +3,7 @@ button {
   color: var(--font-color);
   background: var(--red-color-dark);
   padding: 10px 20px 10px 20px;
-  border: solid var(--font-color) 2px;
+  border: solid var(--font-color) 1px;
   text-decoration: none;
   text-align: center;
 }
@@ -11,6 +11,6 @@ button {
 button:hover {
   background: var(--font-color);
   color: var(--red-color-dark);
-  border: solid var(--font-color) 2px;
+  border: solid var(--red-color-dark) 1px;
   text-decoration: none;
 }

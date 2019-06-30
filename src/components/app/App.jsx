@@ -7,6 +7,9 @@ import TimerDisplay from '../timerDisplay';
 import TimerStart from '../timerStart';
 import TimerReset from '../timerReset';
 import SoundConfig from '../soundConfig';
+import mp3file from '../../assets/alarm-sound.mp3';
+import oggfile from '../../assets/alarm-sound.ogg';
+import captionfile from '../../assets/captions.vtt';
 import { startTimer, stopTimer } from '../../utils/timer';
 import * as timerStates from '../../utils/timerStates';
 
@@ -18,13 +21,15 @@ const defaultPomodoroState = timerStates.INITIAL;
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.audioRef = React.createRef();
     this.state = {
       currentTimeLeft: defaultCurrentTimeLeft,
       sessionTime: defaultSessionTime,
       breakTime: defaultBreakTime,
       pomodoroState: defaultPomodoroState,
       sound: true,
-      startButtonValue: 'Start'
+      startButtonValue: 'Start',
+      configButtonDisabled: false
     };
   }
 
@@ -33,22 +38,21 @@ class App extends React.Component {
   };
 
   tick = secs => {
-    console.log(secs);
     this.setState({ currentTimeLeft: secs });
   };
 
   timerFinished = () => {
-    const { sessionTime, breakTime, pomodoroState } = this.state;
-    console.log('timer finished');
+    const { sessionTime, breakTime, pomodoroState, sound } = this.state;
+    if (sound) {
+      this.audioBeep.play();
+    }
     stopTimer();
     if (pomodoroState === timerStates.SESSION) {
-      console.log('goto BREAK');
       this.setState({ pomodoroState: timerStates.BREAK });
       startTimer(breakTime, this.tick, this.timerFinished);
       return;
     }
     if (pomodoroState === timerStates.BREAK) {
-      console.log('goto SESSION');
       this.setState({ pomodoroState: timerStates.SESSION });
       startTimer(sessionTime, this.tick, this.timerFinished);
     }
@@ -59,32 +63,48 @@ class App extends React.Component {
 
     if (pomodoroState === timerStates.INITIAL) {
       // start timer
-      console.log('start timer, goto SESSION');
-      this.setState({ pomodoroState: timerStates.SESSION, startButtonValue: 'Stop' });
+
+      this.setState({
+        pomodoroState: timerStates.SESSION,
+        startButtonValue: 'Stop',
+        configButtonDisabled: true
+      });
       startTimer(currentTimeLeft, this.tick, this.timerFinished);
       return;
     }
     if (pomodoroState === timerStates.SESSION) {
-      console.log('pause timer, goto SESSION_PAUSED');
-      this.setState({ pomodoroState: timerStates.SESSION_PAUSED, startButtonValue: 'Start' });
+      this.setState({
+        pomodoroState: timerStates.SESSION_PAUSED,
+        startButtonValue: 'Start',
+        configButtonDisabled: false
+      });
       stopTimer();
       return;
     }
     if (pomodoroState === timerStates.SESSION_PAUSED) {
-      console.log('unpause timer, back to SESSION');
-      this.setState({ pomodoroState: timerStates.SESSION, startButtonValue: 'Stop' });
+      this.setState({
+        pomodoroState: timerStates.SESSION,
+        startButtonValue: 'Stop',
+        configButtonDisabled: true
+      });
       startTimer(currentTimeLeft, this.tick, this.timerFinished);
       return;
     }
     if (pomodoroState === timerStates.BREAK) {
-      console.log('pause timer, goto BREAK_PAUSED');
-      this.setState({ pomodoroState: timerStates.BREAK_PAUSED, startButtonValue: 'Stop' });
+      this.setState({
+        pomodoroState: timerStates.BREAK_PAUSED,
+        startButtonValue: 'Start',
+        configButtonDisabled: false
+      });
       stopTimer();
       return;
     }
     if (pomodoroState === timerStates.BREAK_PAUSED) {
-      console.log('unpause timer, back to BREAK');
-      this.setState({ pomodoroState: timerStates.BREAK, startButtonValue: 'Start' });
+      this.setState({
+        pomodoroState: timerStates.BREAK,
+        startButtonValue: 'Stop',
+        configButtonDisabled: true
+      });
       startTimer(currentTimeLeft, this.tick, this.timerFinished);
     }
   };
@@ -96,8 +116,11 @@ class App extends React.Component {
       sessionTime: defaultSessionTime,
       breakTime: defaultBreakTime,
       pomodoroState: timerStates.INITIAL,
-      sound: true
+      sound: true,
+      startButtonValue: 'Start'
     });
+    this.audioBeep.pause();
+    this.audioBeep.currentTime = 0;
   };
 
   render() {
@@ -133,7 +156,17 @@ class App extends React.Component {
             this.setState({ sound });
           }}
         />
-        {/* <audio id="beep" preload="auto" src="" ref="" /> */}
+        <audio
+          id="beep"
+          preload="auto"
+          ref={audio => {
+            this.audioBeep = audio;
+          }}
+        >
+          <source src={oggfile} type="audio/ogg" />
+          <source src={mp3file} type="audio/mpeg" />
+          <track kind="captions" default srcLang="en" src={captionfile} />
+        </audio>
         <Footer />
       </div>
     );
