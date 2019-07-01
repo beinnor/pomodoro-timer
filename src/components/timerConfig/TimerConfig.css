@@ -1,0 +1,11 @@
+#sessionConfig {
+  align-self: center;
+  grid-column: 1/3;
+  grid-row: 4/5;
+}
+
+#breakConfig {
+  align-self: center;
+  grid-column: 1/3;
+  grid-row: 5/6;
+}

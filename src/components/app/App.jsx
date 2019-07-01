@@ -28,8 +28,7 @@ class App extends React.Component {
       breakTime: defaultBreakTime,
       pomodoroState: defaultPomodoroState,
       sound: true,
-      startButtonValue: 'Start',
-      configButtonDisabled: false
+      startButtonValue: 'Start'
     };
   }
 
@@ -66,8 +65,7 @@ class App extends React.Component {
 
       this.setState({
         pomodoroState: timerStates.SESSION,
-        startButtonValue: 'Stop',
-        configButtonDisabled: true
+        startButtonValue: 'Stop'
       });
       startTimer(currentTimeLeft, this.tick, this.timerFinished);
       return;
@@ -75,8 +73,7 @@ class App extends React.Component {
     if (pomodoroState === timerStates.SESSION) {
       this.setState({
         pomodoroState: timerStates.SESSION_PAUSED,
-        startButtonValue: 'Start',
-        configButtonDisabled: false
+        startButtonValue: 'Start'
       });
       stopTimer();
       return;
@@ -84,8 +81,7 @@ class App extends React.Component {
     if (pomodoroState === timerStates.SESSION_PAUSED) {
       this.setState({
         pomodoroState: timerStates.SESSION,
-        startButtonValue: 'Stop',
-        configButtonDisabled: true
+        startButtonValue: 'Stop'
       });
       startTimer(currentTimeLeft, this.tick, this.timerFinished);
       return;
@@ -93,8 +89,7 @@ class App extends React.Component {
     if (pomodoroState === timerStates.BREAK) {
       this.setState({
         pomodoroState: timerStates.BREAK_PAUSED,
-        startButtonValue: 'Start',
-        configButtonDisabled: false
+        startButtonValue: 'Start'
       });
       stopTimer();
       return;
@@ -102,8 +97,7 @@ class App extends React.Component {
     if (pomodoroState === timerStates.BREAK_PAUSED) {
       this.setState({
         pomodoroState: timerStates.BREAK,
-        startButtonValue: 'Stop',
-        configButtonDisabled: true
+        startButtonValue: 'Stop'
       });
       startTimer(currentTimeLeft, this.tick, this.timerFinished);
     }
@@ -135,6 +129,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header />
+
         <TimerDisplay pomodoroState={pomodoroState} timeLeft={currentTimeLeft} />
         <TimerConfig
           name="session"
@@ -167,6 +162,7 @@ class App extends React.Component {
           <source src={mp3file} type="audio/mpeg" />
           <track kind="captions" default srcLang="en" src={captionfile} />
         </audio>
+
         <Footer />
       </div>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../button';
+import './TimerStart.css';
 
 function TimerStart({ buttonClick, value }) {
   return <Button id="start_stop" value={value} buttonClick={buttonClick} />;

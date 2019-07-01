@@ -1,0 +1,6 @@
+#reset {
+  align-self: center;
+  justify-self: center;
+  grid-column: 2/3;
+  grid-row: 6/7;
+}

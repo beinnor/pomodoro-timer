@@ -4,6 +4,7 @@
   --green-color-light: #29d935;
   --red-color-dark: #8c0303;
   --red-color-light: #bf0404;
+  --background-color: #d3a5a5;
 }
 
 html,
@@ -11,8 +12,13 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: var(--background-color);
 }
 
 body {
   font-size: 62.5%;
+}
+
+#root {
+  height: 100%;
 }

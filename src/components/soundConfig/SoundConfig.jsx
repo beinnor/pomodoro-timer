@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './SoundConfig.css';
 
 function SoundConfig({ sound, setSound }) {
   const toggleSound = () => {
@@ -11,16 +12,18 @@ function SoundConfig({ sound, setSound }) {
   };
 
   return (
-    <label htmlFor="soundCheckBox">
-      Sound:
-      <input
-        type="checkbox"
-        id="soundCheckBox"
-        name="soundCheckbox"
-        checked={sound}
-        onChange={toggleSound}
-      />
-    </label>
+    <div id="SoundConfig">
+      <label htmlFor="soundCheckBox">
+        Sound:
+        <input
+          type="checkbox"
+          id="soundCheckBox"
+          name="soundCheckbox"
+          checked={sound}
+          onChange={toggleSound}
+        />
+      </label>
+    </div>
   );
 }
 
