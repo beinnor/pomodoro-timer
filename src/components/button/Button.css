@@ -6,6 +6,8 @@ button {
   border: solid var(--font-color) 1px;
   text-decoration: none;
   text-align: center;
+  font-size: 1.1rem;
+  width: 60%;
 }
 
 button:hover {

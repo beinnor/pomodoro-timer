@@ -4,7 +4,7 @@ import Button from '../button';
 import './TimerReset.css';
 
 function TimerReset({ buttonClick }) {
-  return <Button id="reset" value="reset" buttonClick={buttonClick} />;
+  return <Button id="reset" value="Reset" buttonClick={buttonClick} />;
 }
 
 TimerReset.propTypes = {

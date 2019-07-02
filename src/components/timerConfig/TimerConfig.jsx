@@ -44,11 +44,25 @@ class TimerConfig extends React.Component {
   render() {
     const { name, sessionTime } = this.props;
     return (
-      <div id={`${name}Config`}>
-        <div id={`${name}-label`}>{`${name.charAt(0).toUpperCase() + name.slice(1)} Length`}</div>
-        <Button id={`${name}-decrement`} value="-" buttonClick={this.handleDecrementTime} />
-        <span id={`${name}-length`}>{toMM(sessionTime)}</span>
-        <Button id={`${name}-increment`} value="+" buttonClick={this.handleIncrementTime} />
+      <div className="config" id={`${name}Config`}>
+        <div className="configLabel" id={`${name}-label`}>
+          {`${name.charAt(0).toUpperCase() + name.slice(1)} Length`}
+        </div>
+        <Button
+          name="configMinusButton"
+          id={`${name}-decrement`}
+          value="-"
+          buttonClick={this.handleDecrementTime}
+        />
+        <span className="configLength" id={`${name}-length`}>
+          {toMM(sessionTime)}
+        </span>
+        <Button
+          name="configPlusButton"
+          id={`${name}-increment`}
+          value="+"
+          buttonClick={this.handleIncrementTime}
+        />
       </div>
     );
   }
