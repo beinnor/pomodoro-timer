@@ -1,5 +1,6 @@
 button {
   border-radius: 5px;
+  cursor: pointer;
   color: var(--font-color);
   background: var(--red-color-dark);
   padding: 10px 20px 10px 20px;
@@ -14,5 +15,16 @@ button:hover {
   background: var(--font-color);
   color: var(--red-color-dark);
   border: solid var(--red-color-dark) 1px;
+  text-decoration: none;
+}
+
+button:disabled {
+  background-color: var(--disabled-color);
+}
+
+button:disabled:hover {
+  background-color: var(--disabled-color);
+  color: var(--font-color);
+  border: solid var(--font-color) 1px;
   text-decoration: none;
 }

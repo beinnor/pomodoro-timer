@@ -13,7 +13,7 @@ function SoundConfig({ sound, setSound }) {
 
   return (
     <div id="SoundConfig">
-      <label htmlFor="soundCheckBox">
+      {/* <label htmlFor="soundCheckBox">
         Sound:
         <input
           type="checkbox"
@@ -22,6 +22,14 @@ function SoundConfig({ sound, setSound }) {
           checked={sound}
           onChange={toggleSound}
         />
+      </label>
+  */}
+      <label htmlFor="switch">
+        Sound:
+        <div className="switch">
+          <input type="checkbox" id="switch" checked={sound} onChange={toggleSound} />
+          <span className="slider" />
+        </div>
       </label>
     </div>
   );
