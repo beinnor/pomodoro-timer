@@ -47,6 +47,15 @@
   .configLength {
     font-size: 4rem;
   }
+  #sessionConfig {
+    grid-column: 1/2;
+    grid-row: 4/5;
+  }
+
+  #breakConfig {
+    grid-column: 2/3;
+    grid-row: 4/5;
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
