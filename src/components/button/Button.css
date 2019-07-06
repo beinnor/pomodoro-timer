@@ -7,7 +7,7 @@ button {
   border: solid var(--font-color) 1px;
   text-decoration: none;
   text-align: center;
-  font-size: 1.1rem;
+  font-size: 2rem;
   width: 60%;
 }
 
@@ -27,4 +27,32 @@ button:disabled:hover {
   color: var(--font-color);
   border: solid var(--font-color) 1px;
   text-decoration: none;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  button {
+    font-size: 2rem;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  button {
+    font-size: 3rem;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  button {
+    font-size: 3rem;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  button {
+    font-size: 4rem;
+  }
 }

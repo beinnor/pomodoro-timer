@@ -19,6 +19,11 @@
 .configLabel {
   grid-column: 1/4;
   grid-row: 1/2;
+  font-size: 2rem;
+}
+
+.configLength {
+  font-size: 3rem;
 }
 
 .config button {
@@ -32,4 +37,44 @@
 
 .configPlusButton {
   margin-right: 2rem;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+  .configLabel {
+    font-size: 3rem;
+  }
+  .configLength {
+    font-size: 4rem;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .configLabel {
+    font-size: 4rem;
+  }
+  .configLength {
+    font-size: 5rem;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .configLabel {
+    font-size: 4rem;
+  }
+  .configLength {
+    font-size: 4rem;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .configLabel {
+    font-size: 4rem;
+  }
+  .configLength {
+    font-size: 4rem;
+  }
 }
