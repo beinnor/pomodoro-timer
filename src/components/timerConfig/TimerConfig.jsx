@@ -6,7 +6,12 @@ import { toMM } from '../../utils/helpers';
 
 class TimerConfig extends React.Component {
   handleDecrementTime = () => {
-    alert('decrement');
+    const { name, pomodoroState, sessionTime, setTimeState } = this.props;
+    if (sessionTime > 60) {
+      const newTime = sessionTime - 60;
+      return this.updateTimesValidations(name, newTime, pomodoroState, setTimeState);
+    }
+    return false;
   };
 
   handleIncrementTime = () => {
