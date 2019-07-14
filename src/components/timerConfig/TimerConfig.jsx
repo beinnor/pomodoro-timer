@@ -18,6 +18,16 @@ class TimerConfig extends React.Component {
     alert('increment');
   };
 
+  updateTimesValidations = (name, newTime, pomodoroState, setTimeState) => {
+    if (name === 'session') {
+      return setTimeState({ sessionTime: newTime, currentTimeLeft: newTime });
+    }
+    if (name === 'break') {
+      return setTimeState({ breakTime: newTime, currentTimeLeft: newTime });
+    }
+    return false;
+  };
+
   render() {
     const { name, sessionTime, buttonsDisabled } = this.props;
 
