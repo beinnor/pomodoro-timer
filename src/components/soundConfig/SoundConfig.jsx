@@ -13,17 +13,6 @@ function SoundConfig({ sound, setSound }) {
 
   return (
     <div id="SoundConfig">
-      {/* <label htmlFor="soundCheckBox">
-        Sound:
-        <input
-          type="checkbox"
-          id="soundCheckBox"
-          name="soundCheckbox"
-          checked={sound}
-          onChange={toggleSound}
-        />
-      </label>
-  */}
       <label htmlFor="switch">
         Sound:
         <div className="switch">

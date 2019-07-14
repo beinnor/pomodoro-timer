@@ -3,46 +3,19 @@ import PropTypes from 'prop-types';
 import './TimerConfig.css';
 import Button from '../button';
 import { toMM } from '../../utils/helpers';
-import * as timerStates from '../../utils/timerStates';
 
 class TimerConfig extends React.Component {
   handleDecrementTime = () => {
-    const { name, pomodoroState, sessionTime, setTimeState } = this.props;
-    if (pomodoroState !== timerStates.SESSION && pomodoroState !== timerStates.BREAK) {
-      if (sessionTime > 60) {
-        const newTime = sessionTime - 60;
-        return this.updateTimesValidations(name, newTime, pomodoroState, setTimeState);
-      }
-    }
-    return false;
+    alert('decrement');
   };
 
   handleIncrementTime = () => {
-    const { name, pomodoroState, sessionTime, setTimeState } = this.props;
-    if (pomodoroState !== timerStates.SESSION && pomodoroState !== timerStates.BREAK) {
-      if (sessionTime < 3600) {
-        const newTime = sessionTime + 60;
-        return this.updateTimesValidations(name, newTime, pomodoroState, setTimeState);
-      }
-    }
-    return false;
-  };
-
-  updateTimesValidations = (name, newTime, pomodoroState, setTimeState) => {
-    if (name === 'session' && pomodoroState !== timerStates.BREAK_PAUSED) {
-      return setTimeState({ sessionTime: newTime, currentTimeLeft: newTime });
-    }
-    if (name === 'break' && pomodoroState === timerStates.BREAK_PAUSED) {
-      return setTimeState({ breakTime: newTime, currentTimeLeft: newTime });
-    }
-    if (name === 'break') {
-      return setTimeState({ breakTime: newTime });
-    }
-    return false;
+    alert('increment');
   };
 
   render() {
-    const { name, sessionTime } = this.props;
+    const { name, sessionTime, buttonsDisabled } = this.props;
+
     return (
       <div className="config" id={`${name}Config`}>
         <div className="configLabel" id={`${name}-label`}>
@@ -52,6 +25,7 @@ class TimerConfig extends React.Component {
           name="configMinusButton"
           id={`${name}-decrement`}
           value="-"
+          isDisabled={buttonsDisabled}
           buttonClick={this.handleDecrementTime}
         />
         <span className="configLength" id={`${name}-length`}>
@@ -61,6 +35,7 @@ class TimerConfig extends React.Component {
           name="configPlusButton"
           id={`${name}-increment`}
           value="+"
+          isDisabled={buttonsDisabled}
           buttonClick={this.handleIncrementTime}
         />
       </div>
@@ -72,7 +47,8 @@ TimerConfig.propTypes = {
   name: PropTypes.string.isRequired,
   setTimeState: PropTypes.func.isRequired,
   pomodoroState: PropTypes.number.isRequired,
-  sessionTime: PropTypes.number.isRequired
+  sessionTime: PropTypes.number.isRequired,
+  buttonsDisabled: PropTypes.bool.isRequired
 };
 
 export default TimerConfig;

@@ -2,29 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './TimerDisplay.css';
 import { toMMSS } from '../../utils/helpers';
-import * as timerStates from '../../utils/timerStates';
+import * as pomodoroStates from '../../utils/pomodoroStates';
 
 function TimerDisplay({ pomodoroState, timeLeft }) {
   let label;
 
   switch (pomodoroState) {
-    case timerStates.INITIAL:
-      label = 'Initial';
-      break;
-    case timerStates.SESSION:
+    case pomodoroStates.SESSION:
       label = 'Session';
       break;
-    case timerStates.SESSION_PAUSED:
-      label = 'Session Paused';
-      break;
-    case timerStates.BREAK:
+    case pomodoroStates.BREAK:
       label = 'Break';
       break;
-    case timerStates.BREAK_PAUSED:
-      label = 'Break Paused';
-      break;
     default:
-      label = 'Initial';
+      label = 'Session';
       break;
   }
 
