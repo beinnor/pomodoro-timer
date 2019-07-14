@@ -15,7 +15,12 @@ class TimerConfig extends React.Component {
   };
 
   handleIncrementTime = () => {
-    alert('increment');
+    const { name, pomodoroState, sessionTime, setTimeState } = this.props;
+    if (sessionTime < 3600) {
+      const newTime = sessionTime + 60;
+      return this.updateTimesValidations(name, newTime, pomodoroState, setTimeState);
+    }
+    return false;
   };
 
   updateTimesValidations = (name, newTime, pomodoroState, setTimeState) => {
