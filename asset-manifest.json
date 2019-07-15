@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/pomodoro-timer/static/css/main.0c90f1fe.chunk.css",
+    "main.js": "/pomodoro-timer/static/js/main.466f0fd4.chunk.js",
+    "main.js.map": "/pomodoro-timer/static/js/main.466f0fd4.chunk.js.map",
+    "runtime~main.js": "/pomodoro-timer/static/js/runtime~main.2a0df6ba.js",
+    "runtime~main.js.map": "/pomodoro-timer/static/js/runtime~main.2a0df6ba.js.map",
+    "static/js/2.bbcd3f81.chunk.js": "/pomodoro-timer/static/js/2.bbcd3f81.chunk.js",
+    "static/js/2.bbcd3f81.chunk.js.map": "/pomodoro-timer/static/js/2.bbcd3f81.chunk.js.map",
+    "index.html": "/pomodoro-timer/index.html",
+    "precache-manifest.136d8c8f20971fad71c730fb89a9a8a5.js": "/pomodoro-timer/precache-manifest.136d8c8f20971fad71c730fb89a9a8a5.js",
+    "service-worker.js": "/pomodoro-timer/service-worker.js",
+    "static/css/main.0c90f1fe.chunk.css.map": "/pomodoro-timer/static/css/main.0c90f1fe.chunk.css.map",
+    "static/media/alarm-sound.mp3": "/pomodoro-timer/static/media/alarm-sound.1cd6ea46.mp3",
+    "static/media/alarm-sound.ogg": "/pomodoro-timer/static/media/alarm-sound.fed2ed0b.ogg",
+    "static/media/captions.vtt": "/pomodoro-timer/static/media/captions.dce4e024.vtt"
+  }
+}
