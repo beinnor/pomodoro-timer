@@ -129,7 +129,7 @@ class App extends React.Component {
           setTimeState={this.setTimeState}
         />
         <TimerStart buttonClick={this.handleStartButton} value={startButtonValue} />
-        <TimerReset buttonClick={this.handleReset} buttonsDisabled={buttonsDisabled} />
+        <TimerReset buttonClick={this.handleReset} />
         <SoundConfig
           sound={soundOn}
           setSound={sound => {

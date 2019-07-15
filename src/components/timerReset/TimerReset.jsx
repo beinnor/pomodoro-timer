@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import Button from '../button';
 import './TimerReset.css';
 
-function TimerReset({ buttonClick, buttonsDisabled }) {
-  return <Button id="reset" value="Reset" isDisabled={buttonsDisabled} buttonClick={buttonClick} />;
+function TimerReset({ buttonClick }) {
+  return <Button id="reset" value="Reset" isDisabled={false} buttonClick={buttonClick} />;
 }
 
 TimerReset.propTypes = {
-  buttonClick: PropTypes.func.isRequired,
-  buttonsDisabled: PropTypes.bool.isRequired
+  buttonClick: PropTypes.func.isRequired
 };
 
 export default TimerReset;
