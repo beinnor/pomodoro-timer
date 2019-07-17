@@ -25,10 +25,10 @@ class TimerConfig extends React.Component {
 
   updateTimesValidations = (name, newTime, pomodoroState, setTimeState) => {
     if (name === 'session') {
-      return setTimeState({ sessionTime: newTime, currentTimeLeft: newTime });
+      return setTimeState({ sessionTime: newTime });
     }
     if (name === 'break') {
-      return setTimeState({ breakTime: newTime, currentTimeLeft: newTime });
+      return setTimeState({ breakTime: newTime });
     }
     return false;
   };

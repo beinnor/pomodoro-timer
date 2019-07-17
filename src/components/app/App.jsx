@@ -10,7 +10,7 @@ import SoundConfig from '../soundConfig';
 import mp3file from '../../assets/alarm-sound.mp3';
 import oggfile from '../../assets/alarm-sound.ogg';
 import captionfile from '../../assets/captions.vtt';
-import { startTimer, stopTimer } from '../../utils/timer';
+// import { startTimer, stopTimer } from '../../utils/timer';
 import * as pomodoroStates from '../../utils/pomodoroStates';
 import * as timerStates from '../../utils/timerStates';
 
@@ -36,12 +36,24 @@ class App extends React.Component {
     };
   }
 
-  setTimeState = obj => {
-    this.setState(obj);
+  startTimer = () => {
+    this.timeInterval = setInterval(() => {
+      this.setState(({ currentTimeLeft }) => ({
+        currentTimeLeft: currentTimeLeft - 1
+      }));
+      const { currentTimeLeft } = this.state;
+      if (currentTimeLeft < 0) {
+        this.timerFinished();
+      }
+    }, 1000);
   };
 
-  tick = secs => {
-    this.setState({ currentTimeLeft: secs });
+  stopTimer = () => {
+    clearInterval(this.timer);
+  };
+
+  setTimeState = obj => {
+    this.setState(obj);
   };
 
   timerFinished = () => {
@@ -49,15 +61,15 @@ class App extends React.Component {
     if (sound) {
       this.audioBeep.play();
     }
-    stopTimer();
+    this.stopTimer();
     if (pomodoroState === pomodoroStates.SESSION) {
       this.setState({ pomodoroState: pomodoroStates.BREAK });
-      startTimer(breakTime, this.tick, this.timerFinished);
+      this.startTimer(breakTime);
       return;
     }
     if (pomodoroState === pomodoroStates.BREAK) {
       this.setState({ pomodoroState: pomodoroStates.SESSION });
-      startTimer(sessionTime, this.tick, this.timerFinished);
+      this.startTimer(sessionTime);
     }
   };
 
@@ -70,21 +82,22 @@ class App extends React.Component {
         buttonsDisabled: true,
         startButtonValue: 'Stop'
       });
-      startTimer(currentTimeLeft, this.tick, this.timerFinished);
+      this.startTimer(currentTimeLeft);
     }
 
     if (timerState === timerStates.RUNNING) {
       this.setState({
         timerState: timerStates.PAUSED,
         buttonsDisabled: false,
-        startButtonValue: 'Start'
+        startButtonValue: 'Start',
+        currentTimeLeft
       });
-      stopTimer();
+      this.stopTimer();
     }
   };
 
   handleReset = () => {
-    stopTimer();
+    this.stopTimer();
     this.setState({
       currentTimeLeft: defaultCurrentTimeLeft,
       sessionTime: defaultSessionTime,
