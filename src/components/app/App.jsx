@@ -122,6 +122,7 @@ class App extends React.Component {
       startButtonValue,
       buttonsDisabled
     } = this.state;
+
     return (
       <div className="App">
         <Header />

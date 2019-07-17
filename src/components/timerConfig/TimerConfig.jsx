@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './TimerConfig.css';
 import Button from '../button';
+import * as pomodoroStates from '../../utils/pomodoroStates';
 import { toMM } from '../../utils/helpers';
 
 class TimerConfig extends React.Component {
@@ -25,9 +26,15 @@ class TimerConfig extends React.Component {
 
   updateTimesValidations = (name, newTime, pomodoroState, setTimeState) => {
     if (name === 'session') {
+      if (pomodoroState === pomodoroStates.SESSION) {
+        return setTimeState({ sessionTime: newTime, currentTimeLeft: newTime });
+      }
       return setTimeState({ sessionTime: newTime });
     }
     if (name === 'break') {
+      if (pomodoroState === pomodoroStates.BREAK) {
+        return setTimeState({ breakTime: newTime, currentTimeLeft: newTime });
+      }
       return setTimeState({ breakTime: newTime });
     }
     return false;
