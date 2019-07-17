@@ -10,7 +10,6 @@ import SoundConfig from '../soundConfig';
 import mp3file from '../../assets/alarm-sound.mp3';
 import oggfile from '../../assets/alarm-sound.ogg';
 import captionfile from '../../assets/captions.vtt';
-// import { startTimer, stopTimer } from '../../utils/timer';
 import * as pomodoroStates from '../../utils/pomodoroStates';
 import * as timerStates from '../../utils/timerStates';
 
@@ -37,7 +36,7 @@ class App extends React.Component {
   }
 
   startTimer = () => {
-    this.timeInterval = setInterval(() => {
+    this.timer = setInterval(() => {
       this.setState(({ currentTimeLeft }) => ({
         currentTimeLeft: currentTimeLeft - 1
       }));
@@ -63,13 +62,13 @@ class App extends React.Component {
     }
     this.stopTimer();
     if (pomodoroState === pomodoroStates.SESSION) {
-      this.setState({ pomodoroState: pomodoroStates.BREAK });
-      this.startTimer(breakTime);
+      this.setState({ pomodoroState: pomodoroStates.BREAK, currentTimeLeft: breakTime });
+      this.startTimer();
       return;
     }
     if (pomodoroState === pomodoroStates.BREAK) {
-      this.setState({ pomodoroState: pomodoroStates.SESSION });
-      this.startTimer(sessionTime);
+      this.setState({ pomodoroState: pomodoroStates.SESSION, currentTimeLeft: sessionTime });
+      this.startTimer();
     }
   };
 
@@ -82,7 +81,7 @@ class App extends React.Component {
         buttonsDisabled: true,
         startButtonValue: 'Stop'
       });
-      this.startTimer(currentTimeLeft);
+      this.startTimer();
     }
 
     if (timerState === timerStates.RUNNING) {

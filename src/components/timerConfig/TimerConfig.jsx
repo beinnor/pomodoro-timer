@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import './TimerConfig.css';
 import Button from '../button';
 import * as pomodoroStates from '../../utils/pomodoroStates';
-import { toMM } from '../../utils/helpers';
 
 class TimerConfig extends React.Component {
   handleDecrementTime = () => {
@@ -40,6 +39,11 @@ class TimerConfig extends React.Component {
     return false;
   };
 
+  toMM = secs => {
+    const minutes = Math.floor(secs / 60);
+    return `${minutes}`;
+  };
+
   render() {
     const { name, sessionTime, buttonsDisabled } = this.props;
 
@@ -56,7 +60,7 @@ class TimerConfig extends React.Component {
           buttonClick={this.handleDecrementTime}
         />
         <span className="configLength" id={`${name}-length`}>
-          {toMM(sessionTime)}
+          {this.toMM(sessionTime)}
         </span>
         <Button
           name="configPlusButton"
